@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/los_db
+    username: los_user
+    password: los_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate # We manage schema with schema.sql in production, but validate ensures mappings are correct
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+
+app:
+  jwtSecret: 9a3c4f7b6d1e8c5a2b0e4f7a9d1c3b5a7e6c8b0a1d3f5e7c9a2b4f6d8e0c1a3b5
+  jwtExpirationMs: 86400000 # 24 hours

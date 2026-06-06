@@ -31,6 +31,18 @@ public class Loan {
     @Column(name = "tenure_months", nullable = false)
     private Integer tenureMonths;
 
+    @Column(nullable = false)
+    private Integer age;
+
+    @Column(nullable = false)
+    private Integer dependents;
+
+    @Column(name = "geographical_location", nullable = false, length = 100)
+    private String geographicalLocation;
+
+    @Column(name = "declared_income", nullable = false, precision = 15, scale = 2)
+    private BigDecimal declaredIncome;
+
     @Column(nullable = false, length = 50)
     private String status;
 

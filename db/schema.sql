@@ -17,6 +17,10 @@ CREATE TABLE loans (
     user_id UUID NOT NULL,
     principal_amount DECIMAL(15, 2) NOT NULL,
     tenure_months INT NOT NULL,
+    age INT NOT NULL,
+    dependents INT NOT NULL,
+    geographical_location VARCHAR(100) NOT NULL,
+    declared_income DECIMAL(15, 2) NOT NULL,
     status VARCHAR(50) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_user

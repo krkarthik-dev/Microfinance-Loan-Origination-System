@@ -1,0 +1,51 @@
+<div class="dashboard-container">
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>Apply for a Loan</mat-card-title>
+      <mat-card-subtitle>Please enter your demographic details and upload KYC.</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()" class="application-form">
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Age</mat-label>
+          <input matInput type="number" formControlName="age">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Annual Income (₹)</mat-label>
+          <input matInput type="number" formControlName="income">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Loan Amount Requested (₹)</mat-label>
+          <input matInput type="number" formControlName="loanAmount">
+        </mat-form-field>
+
+        <div class="file-upload-section">
+          <h3>KYC Documents</h3>
+          <div class="upload-row">
+            <label>Aadhaar Card:</label>
+            <input type="file" (change)="onFileSelected($event, 'aadhaar')" accept=".pdf,.jpg,.png">
+            <span *ngIf="selectedAadhaar" class="file-name">{{ selectedAadhaar.name }}</span>
+          </div>
+          <div class="upload-row">
+            <label>PAN Card:</label>
+            <input type="file" (change)="onFileSelected($event, 'pan')" accept=".pdf,.jpg,.png">
+            <span *ngIf="selectedPan" class="file-name">{{ selectedPan.name }}</span>
+          </div>
+        </div>
+
+        <div *ngIf="successMessage" class="success-alert">
+          {{ successMessage }}
+        </div>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="applicationForm.invalid || isSubmitting">
+          {{ isSubmitting ? 'Submitting...' : 'Submit Application' }}
+        </button>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

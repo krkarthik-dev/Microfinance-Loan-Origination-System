@@ -53,13 +53,15 @@ async def consume_loan_events():
                     continue
                 
                 # Perform feature engineering and ML scoring
-                score = score_loan(loan_data)
-                print(f"Processed loan {loan_id}, Score: {score}")
+                scoring_result = score_loan(loan_data)
+                print(f"Processed loan {loan_id}, Result: {scoring_result}")
                 
                 # Publish the scoring result to 'score_results' topic
                 result_event = {
                     'loan_id': loan_id,
-                    'score': score
+                    'score': scoring_result['score'],
+                    'risk_tier': scoring_result['risk_tier'],
+                    'pod': scoring_result['pod']
                 }
                 
                 producer.produce(

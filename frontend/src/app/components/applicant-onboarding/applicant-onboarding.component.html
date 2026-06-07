@@ -1,0 +1,61 @@
+<div class="onboarding-container">
+  <div class="card onboarding-card">
+    <div class="onboarding-header">
+      <h2>Complete Your Profile</h2>
+      <p class="subtitle">Please provide your KYC details to continue</p>
+    </div>
+
+    <form [formGroup]="onboardingForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-half">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName">
+          <mat-error *ngIf="onboardingForm.get('firstName')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-half">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName">
+          <mat-error *ngIf="onboardingForm.get('lastName')?.hasError('required')">Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field appearance="outline" class="col-half">
+          <mat-label>Aadhaar Number</mat-label>
+          <input matInput formControlName="aadhaarNumber" placeholder="12-digit number">
+          <mat-error *ngIf="onboardingForm.get('aadhaarNumber')?.hasError('required')">Required</mat-error>
+          <mat-error *ngIf="onboardingForm.get('aadhaarNumber')?.hasError('pattern')">Must be 12 digits</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-half">
+          <mat-label>PAN Number</mat-label>
+          <input matInput formControlName="panNumber" placeholder="ABCDE1234F" style="text-transform: uppercase;">
+          <mat-error *ngIf="onboardingForm.get('panNumber')?.hasError('required')">Required</mat-error>
+          <mat-error *ngIf="onboardingForm.get('panNumber')?.hasError('pattern')">Invalid PAN format</mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput type="date" formControlName="dateOfBirth">
+        <mat-error *ngIf="onboardingForm.get('dateOfBirth')?.hasError('required')">Required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Current Address</mat-label>
+        <textarea matInput formControlName="address" rows="3"></textarea>
+        <mat-error *ngIf="onboardingForm.get('address')?.hasError('required')">Required</mat-error>
+      </mat-form-field>
+
+      <div *ngIf="successMsg" class="success-msg">{{ successMsg }}</div>
+      <div *ngIf="errorMsg" class="error-msg">{{ errorMsg }}</div>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit" class="btn-primary w-100" [disabled]="onboardingForm.invalid || submitting">
+          {{ submitting ? 'Submitting...' : 'Save Profile' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

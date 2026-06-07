@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "loans")
+@EntityListeners(com.microfinance.los.audit.AuditLogListener.class)
 @Getter
 @Setter
 @NoArgsConstructor

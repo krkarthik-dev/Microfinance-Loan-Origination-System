@@ -6,7 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: validate # We manage schema with schema.sql in production, but validate ensures mappings are correct
+      ddl-auto: update # Changed to update for development so tables are created automatically
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

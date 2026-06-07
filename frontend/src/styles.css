@@ -1,2 +1,150 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #f5f5f5; }
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Brand Colors */
+  --primary-color: #0052FF; /* Premium Blue */
+  --secondary-color: #FFFFFF; /* White */
+  --accent-color: #003ECC; /* Darker Blue */
+  
+  /* Backgrounds */
+  --bg-color: #F0F4F8; /* Soft blue-gray */
+  --surface-color: #FFFFFF;
+  
+  /* Text */
+  --text-primary: #1A202C; /* Dark Slate */
+  --text-secondary: #4A5568;
+  
+  /* Status Colors */
+  --success: #38A169;
+  --warning: #DD6B20;
+  --danger: #E53E3E;
+  
+  /* Effects */
+  --shadow-sm: 0 2px 4px rgba(0, 82, 255, 0.05);
+  --shadow-md: 0 8px 16px rgba(0, 82, 255, 0.08), 0 4px 6px rgba(0, 82, 255, 0.04);
+  --shadow-lg: 0 16px 24px rgba(0, 82, 255, 0.12), 0 8px 12px rgba(0, 82, 255, 0.08);
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+html, body { 
+    height: 100%; 
+    margin: 0;
+}
+
+body { 
+    font-family: 'Outfit', sans-serif; 
+    background-color: var(--bg-color); 
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Base UI classes */
+.card {
+    background: var(--surface-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 24px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 10px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #112B4F;
+}
+
+.btn-accent {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 10px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-accent:hover {
+    background-color: #E55A25;
+    transform: translateY(-1px);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #E2E8F0;
+    border-radius: var(--radius-md);
+    font-family: 'Outfit', sans-serif;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(10, 25, 47, 0.1);
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 900;
+    color: #000000;
+    letter-spacing: -0.5px;
+    display: inline-block;
+    padding-bottom: 8px;
+    position: relative;
+}
+
+.logo-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    border-radius: 2px;
+}
+
+.logo-accent {
+    color: #000000;
+    font-weight: 900;
+}
+
+.gradient-custom-2 {
+/* fallback for old browsers */
+background: #fccb90;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+}
+
+@media (min-width: 768px) {
+.gradient-form {
+height: 100vh !important;
+}
+}
+@media (min-width: 769px) {
+.gradient-custom-2 {
+border-top-right-radius: .3rem;
+border-bottom-right-radius: .3rem;
+}
+}

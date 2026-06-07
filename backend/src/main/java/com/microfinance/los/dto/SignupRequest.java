@@ -15,5 +15,11 @@ public class SignupRequest {
     @NotBlank
     private String password;
 
+    @NotBlank
+    private String fullName;
+
+    @NotBlank
+    private String phoneNumber;
+
     private String role; // Optional, defaults to ROLE_APPLICANT
 }

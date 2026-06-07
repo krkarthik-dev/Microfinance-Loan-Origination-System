@@ -1,73 +1,98 @@
-<div class="dashboard-container">
-  <h2>Loan Applications Queue</h2>
+<div class="dashboard-wrapper">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <span class="logo-text">NIDHI <span class="logo-accent">Banking Pvt Ltd</span></span>
+    <span class="spacer"></span>
+    <span class="user-role">Loan Officer Portal</span>
+    <button mat-button class="logout-btn" (click)="logout()">Logout</button>
+  </mat-toolbar>
 
-  <mat-card>
-    <table mat-table [dataSource]="loans$" class="mat-elevation-z8">
+  <div class="dashboard-container">
+    <div class="header-section">
+      <h2 class="section-title">Loan Applications Queue</h2>
+      <p class="subtitle">Review and decision pending applications. ML scoring is automatically integrated.</p>
+    </div>
 
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> Application ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
+    <div class="card table-card">
+      <div class="table-container">
+        <table mat-table [dataSource]="loans$" class="nidhi-table">
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Applicant Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-      </ng-container>
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Application ID </th>
+            <td mat-cell *matCellDef="let element"> <span class="id-text">#{{element.id}}</span> </td>
+          </ng-container>
 
-      <!-- Details Column -->
-      <ng-container matColumnDef="details">
-        <th mat-header-cell *matHeaderCellDef> Demographics </th>
-        <td mat-cell *matCellDef="let element">
-          Age: {{element.age}} <br/>
-          Inc: ₹{{element.income}} <br/>
-          Req: ₹{{element.loanAmount}}
-        </td>
-      </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Applicant Name </th>
+            <td mat-cell *matCellDef="let element"> 
+              <div class="applicant-info">
+                <mat-icon color="primary">person</mat-icon>
+                <span>{{element.name}}</span>
+              </div>
+            </td>
+          </ng-container>
 
-      <!-- Score Column -->
-      <ng-container matColumnDef="score">
-        <th mat-header-cell *matHeaderCellDef> ML Score </th>
-        <td mat-cell *matCellDef="let element"> 
-          <strong>{{element.score}}</strong>
-          <div class="pod-text">(PoD: {{element.pod | percent}})</div>
-        </td>
-      </ng-container>
+          <!-- Details Column -->
+          <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef> Demographics </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="demographics">
+                <span>Age: <strong>{{element.age}}</strong></span>
+                <span>Inc: <strong>₹{{element.income}}</strong></span>
+                <span>Req: <strong>₹{{element.loanAmount}}</strong></span>
+              </div>
+            </td>
+          </ng-container>
 
-      <!-- Risk Tier Column -->
-      <ng-container matColumnDef="riskTier">
-        <th mat-header-cell *matHeaderCellDef> Risk Tier </th>
-        <td mat-cell *matCellDef="let element">
-          <mat-chip-listbox>
-            <mat-chip-option [color]="element.riskTier === 'Excellent' || element.riskTier === 'Good' ? 'primary' : 'warn'" selected>
-              {{element.riskTier}}
-            </mat-chip-option>
-          </mat-chip-listbox>
-        </td>
-      </ng-container>
+          <!-- Score Column -->
+          <ng-container matColumnDef="score">
+            <th mat-header-cell *matHeaderCellDef> ML Score </th>
+            <td mat-cell *matCellDef="let element"> 
+              <div class="score-container" [class.high-risk]="element.score < 600" [class.low-risk]="element.score >= 700">
+                <span class="score-value">{{element.score}}</span>
+                <span class="pod-text">PoD: {{element.pod | percent}}</span>
+              </div>
+            </td>
+          </ng-container>
 
-      <!-- Status Column -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let element"> 
-          <span class="status-badge" [ngClass]="element.status.toLowerCase()">{{element.status}}</span>
-        </td>
-      </ng-container>
+          <!-- Risk Tier Column -->
+          <ng-container matColumnDef="riskTier">
+            <th mat-header-cell *matHeaderCellDef> Risk Tier </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="tier-badge" [ngClass]="element.riskTier.toLowerCase()">
+                {{element.riskTier}}
+              </span>
+            </td>
+          </ng-container>
 
-      <!-- Actions Column -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element">
-          <div class="action-buttons" *ngIf="element.status === 'Pending'">
-            <button mat-raised-button color="primary" (click)="approveLoan(element.id)">Approve</button>
-            <button mat-raised-button color="warn" (click)="rejectLoan(element.id)">Reject</button>
-          </div>
-        </td>
-      </ng-container>
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element"> 
+              <span class="status-badge" [ngClass]="element.status.toLowerCase()">{{element.status}}</span>
+            </td>
+          </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </mat-card>
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="action-buttons" *ngIf="element.status === 'Pending'">
+                <button mat-icon-button color="primary" matTooltip="Approve" (click)="approveLoan(element.id)">
+                  <mat-icon>check_circle</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" matTooltip="Reject" (click)="rejectLoan(element.id)">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

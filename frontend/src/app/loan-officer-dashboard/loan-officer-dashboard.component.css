@@ -1,39 +1,157 @@
-.dashboard-container {
-  padding-top: 1rem;
+.dashboard-wrapper {
+  background-color: var(--bg-color);
+  min-height: 100vh;
 }
 
-table {
+.app-toolbar {
+  box-shadow: var(--shadow-sm);
+  z-index: 10;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.user-role {
+  font-size: 14px;
+  margin-right: 16px;
+  color: var(--text-secondary);
+}
+
+.dashboard-container {
+  padding: 40px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  color: var(--primary-color);
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.nidhi-table {
   width: 100%;
 }
 
+.table-row:hover {
+  background-color: #f8fafc;
+}
+
+.id-text {
+  font-family: monospace;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.applicant-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.demographics {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  background: #f1f5f9;
+  width: max-content;
+}
+
+.score-container.high-risk {
+  background: #fef2f2;
+  color: var(--danger);
+}
+
+.score-container.low-risk {
+  background: #f0fdf4;
+  color: var(--success);
+}
+
+.score-value {
+  font-size: 18px;
+  font-weight: 600;
+}
+
 .pod-text {
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.tier-badge {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.tier-badge.excellent, .tier-badge.good {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.tier-badge.fair {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.tier-badge.poor, .tier-badge.highrisk {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 .status-badge {
-  padding: 4px 8px;
+  padding: 4px 12px;
   border-radius: 4px;
+  font-size: 12px;
   font-weight: 500;
-  font-size: 0.85rem;
 }
 
 .status-badge.pending {
-  background-color: #fff3cd;
-  color: #856404;
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
 }
 
 .status-badge.approved {
-  background-color: #d4edda;
-  color: #155724;
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
 }
 
 .status-badge.rejected {
-  background-color: #f8d7da;
-  color: #721c24;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
 }
 
 .action-buttons {
   display: flex;
   gap: 8px;
+}
+
+.logout-btn {
+  color: var(--secondary-color);
 }

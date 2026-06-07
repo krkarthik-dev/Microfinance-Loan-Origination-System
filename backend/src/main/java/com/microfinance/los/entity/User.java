@@ -27,6 +27,12 @@ public class User {
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
 
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+
+    @Column(name = "phone_number", nullable = false, length = 20)
+    private String phoneNumber;
+
     @Column(nullable = false, length = 50)
     private String role;
 
@@ -42,4 +48,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Loan> loans;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ApplicantProfile applicantProfile;
 }

@@ -6,6 +6,7 @@ import com.microfinance.los.entity.User;
 import com.microfinance.los.repository.LoanRepository;
 import com.microfinance.los.statemachine.LoanEvent;
 import com.microfinance.los.statemachine.LoanState;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.statemachine.StateMachine;
@@ -51,9 +52,18 @@ public class LoanOriginationService {
         Loan savedLoan = loanRepository.save(loan);
 
         // 4. Publish to Kafka
-        requestDTO.setLoanId(savedLoan.getLoanId());
-        requestDTO.setUserId(user.getId());
-        kafkaTemplate.send(KAFKA_TOPIC, savedLoan.getLoanId().toString(), requestDTO);
+        Map<String, Object> data = new java.util.HashMap<>();
+        data.put("id", savedLoan.getLoanId().toString());
+        data.put("principalAmount", requestDTO.getPrincipalAmount());
+        data.put("tenureMonths", requestDTO.getTenureMonths());
+        data.put("age", requestDTO.getAge());
+        data.put("dependents", requestDTO.getDependents());
+        data.put("geographicalLocation", requestDTO.getGeographicalLocation());
+        data.put("declaredIncome", requestDTO.getDeclaredIncome());
+
+        com.microfinance.los.dto.LoanEventMessage eventMessage = new com.microfinance.los.dto.LoanEventMessage("loan_created", data);
+        
+        kafkaTemplate.send("loan_events", savedLoan.getLoanId().toString(), eventMessage);
 
         return savedLoan;
     }

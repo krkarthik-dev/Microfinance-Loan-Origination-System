@@ -1,0 +1,99 @@
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <h4 class="mt-1 mb-5 pb-1 logo-text">Nidhi Banking pvt ltd</h4>
+                </div>
+
+                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                  <p>Create your new account</p>
+
+                  <div class="form-outline mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" formControlName="fullName" class="form-control" placeholder="Enter your full name" />
+                    <div class="text-danger small mt-1" *ngIf="signupForm.get('fullName')?.hasError('required') && signupForm.get('fullName')?.touched">
+                      Full name is required
+                    </div>
+                  </div>
+
+                  <div class="form-outline mb-3">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" formControlName="phoneNumber" class="form-control" placeholder="Enter your 10-digit phone number" />
+                    <div class="text-danger small mt-1" *ngIf="signupForm.get('phoneNumber')?.hasError('required') && signupForm.get('phoneNumber')?.touched">
+                      Phone number is required
+                    </div>
+                    <div class="text-danger small mt-1" *ngIf="signupForm.get('phoneNumber')?.hasError('pattern') && signupForm.get('phoneNumber')?.touched">
+                      Please enter a valid 10-digit phone number
+                    </div>
+                  </div>
+
+                  <div class="form-outline mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" formControlName="email" class="form-control" placeholder="Enter your email" />
+                    <div class="text-danger small mt-1" *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched">
+                      Email is required
+                    </div>
+                    <div class="text-danger small mt-1" *ngIf="signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched">
+                      Please enter a valid email address
+                    </div>
+                  </div>
+
+                  <div class="form-outline mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" formControlName="password" class="form-control" placeholder="Enter your password" />
+                    <div class="text-danger small mt-1" *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched">
+                      Password is required
+                    </div>
+                    <div class="text-danger small mt-1" *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched">
+                      Password must be at least 6 characters
+                    </div>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" formControlName="confirmPassword" class="form-control" placeholder="Confirm your password" />
+                    <div class="text-danger small mt-1" *ngIf="signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.touched">
+                      Confirm password is required
+                    </div>
+                    <div class="text-danger small mt-1" *ngIf="signupForm.hasError('mismatch') && signupForm.get('confirmPassword')?.touched">
+                      Passwords do not match
+                    </div>
+                  </div>
+
+                  <div *ngIf="error" class="alert alert-danger mb-4">
+                    {{ error }}
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button class="btn btn-primary w-100 fa-lg gradient-custom-2 mb-3 border-0" type="submit" [disabled]="signupForm.invalid" style="color: white; padding: 10px;">
+                      Sign Up
+                    </button>
+                  </div>
+
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                    <p class="mb-0 me-2">Already have an account?</p>
+                    <button type="button" class="btn btn-outline-danger" routerLink="/login">Login here</button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">Begin Your Journey</h4>
+                <p class="small mb-0">Create an account to gain access to our extensive microfinance services. Fast, secure, and tailored to help you grow your business and personal finances.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

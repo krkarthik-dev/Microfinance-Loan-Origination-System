@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoanService } from '../loan.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-applicant-dashboard',
@@ -14,12 +15,20 @@ export class ApplicantDashboardComponent {
   selectedAadhaar: File | null = null;
   selectedPan: File | null = null;
 
-  constructor(private fb: FormBuilder, private loanService: LoanService) {
+  constructor(
+    private fb: FormBuilder, 
+    private loanService: LoanService,
+    private authService: AuthService
+  ) {
     this.applicationForm = this.fb.group({
       age: ['', [Validators.required, Validators.min(18)]],
       income: ['', [Validators.required, Validators.min(1000)]],
       loanAmount: ['', [Validators.required, Validators.min(100)]]
     });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   onFileSelected(event: any, type: 'aadhaar' | 'pan') {

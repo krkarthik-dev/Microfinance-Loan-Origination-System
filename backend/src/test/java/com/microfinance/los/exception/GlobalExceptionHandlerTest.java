@@ -9,6 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import com.microfinance.los.security.JwtUtils;
+import com.microfinance.los.security.UserDetailsServiceImpl;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -16,11 +19,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = GlobalExceptionHandlerTest.DummyController.class)
 @AutoConfigureMockMvc(addFilters = false) // Bypass spring security for exception testing
-@Import(GlobalExceptionHandler.class)
+@Import({GlobalExceptionHandler.class, GlobalExceptionHandlerTest.DummyController.class})
 public class GlobalExceptionHandlerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private JwtUtils jwtUtils;
+
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
 
     @Test
     public void testHandleIllegalArgumentException() throws Exception {
